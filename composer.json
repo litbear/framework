@@ -1,5 +1,6 @@
 {
     "require": {
-        "symfony/http-foundation": "@stable"
+        "symfony/http-foundation": "@stable",
+        "symfony/routing": "@stable"
     }
 }
