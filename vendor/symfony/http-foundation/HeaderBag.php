@@ -13,6 +13,7 @@ namespace Symfony\Component\HttpFoundation;
 
 /**
  * HeaderBag is a container for HTTP headers.
+ * 本类是HTTP请求或响应头的容器
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
@@ -23,6 +24,7 @@ class HeaderBag implements \IteratorAggregate, \Countable
 
     /**
      * Constructor.
+     * 构造器
      *
      * @param array $headers An array of HTTP headers
      */
@@ -130,6 +132,7 @@ class HeaderBag implements \IteratorAggregate, \Countable
 
     /**
      * Sets a header by name.
+     * 根据名称构造头
      *
      * @param string       $key     The key
      * @param string|array $values  The value or an array of values
@@ -306,6 +309,7 @@ class HeaderBag implements \IteratorAggregate, \Countable
 
     /**
      * Parses a Cache-Control HTTP header.
+     * 解析名为Cache-Control的HTTP头
      *
      * @param string $header The value of the Cache-Control HTTP header
      *

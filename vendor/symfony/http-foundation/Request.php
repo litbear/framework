@@ -15,8 +15,10 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * Request represents an HTTP request.
+ * 本类代表一个HTTP请求
  *
  * The methods dealing with URL accept / return a raw path (% encoded):
+ * 以下这些方法处理URL，接收或返回（%被编码的）原始路径
  *   * getBasePath
  *   * getBaseUrl
  *   * getPathInfo
@@ -63,11 +65,21 @@ class Request
     /**
      * Names for headers that can be trusted when
      * using trusted proxies.
+     * 使用受信任的代理服务器时，可信的请求头名
      *
      * The FORWARDED header is the standard as of rfc7239.
+     * FORWARDED 请求头是rfc7239 协议的标准
      *
      * The other headers are non-standard, but widely used
      * by popular reverse proxies (like Apache mod_proxy or Amazon EC2).
+     * 其他请求头并不是标准，但已经被广泛用于各种流行的反向代理服务器。
+     * 
+     * 本类属性所用到的对象：
+     * \Symfony\Component\HttpFoundation\ParameterBag
+     * \Symfony\Component\HttpFoundation\ServerBag
+     * \Symfony\Component\HttpFoundation\FileBag
+     * \Symfony\Component\HttpFoundation\HeaderBag
+     * \Symfony\Component\HttpFoundation\Session\SessionInterface
      */
     protected static $trustedHeaders = array(
         self::HEADER_FORWARDED => 'FORWARDED',
@@ -81,6 +93,7 @@ class Request
 
     /**
      * Custom parameters.
+     * 自定义参数
      *
      * @var \Symfony\Component\HttpFoundation\ParameterBag
      */
@@ -88,6 +101,7 @@ class Request
 
     /**
      * Request body parameters ($_POST).
+     * 请求体参数，即POST参数
      *
      * @var \Symfony\Component\HttpFoundation\ParameterBag
      */
@@ -95,6 +109,7 @@ class Request
 
     /**
      * Query string parameters ($_GET).
+     * 查询字符串，即get参数
      *
      * @var \Symfony\Component\HttpFoundation\ParameterBag
      */
@@ -102,6 +117,7 @@ class Request
 
     /**
      * Server and execution environment parameters ($_SERVER).
+     * 服务器及运行环境参数，即$_SERVER全局变量
      *
      * @var \Symfony\Component\HttpFoundation\ServerBag
      */
@@ -123,6 +139,7 @@ class Request
 
     /**
      * Headers (taken from the $_SERVER).
+     * 请求头参数
      *
      * @var \Symfony\Component\HttpFoundation\HeaderBag
      */
@@ -259,6 +276,7 @@ class Request
 
     /**
      * Creates a new request with values from PHP's super globals.
+     * 从PHP的超级全局变量中创建一个新的request对象
      *
      * @return Request A new request
      */
@@ -267,6 +285,9 @@ class Request
         // With the php's bug #66606, the php's built-in web server
         // stores the Content-Type and Content-Length header values in
         // HTTP_CONTENT_TYPE and HTTP_CONTENT_LENGTH fields.
+        // 因为php的#66606号bug，php内置的web服务器使用HTTP_CONTENT_TYPE
+        // 和HTTP_CONTENT_LENGTH两个元素Content-Type 和
+        // Content-Length  两个请求头
         $server = $_SERVER;
         if ('cli-server' === php_sapi_name()) {
             if (array_key_exists('HTTP_CONTENT_LENGTH', $_SERVER)) {
@@ -279,9 +300,11 @@ class Request
 
         $request = self::createRequestFromFactory($_GET, $_POST, array(), $_COOKIE, $_FILES, $server);
 
+        // 如果有文件上传，且http方法为'PUT', 'DELETE', 'PATCH'其中之一
         if (0 === strpos($request->headers->get('CONTENT_TYPE'), 'application/x-www-form-urlencoded')
             && in_array(strtoupper($request->server->get('REQUEST_METHOD', 'GET')), array('PUT', 'DELETE', 'PATCH'))
         ) {
+            // 则解析请求体内容并赋值给$data
             parse_str($request->getContent(), $data);
             $request->request = new ParameterBag($data);
         }
@@ -1893,6 +1916,7 @@ class Request
 
     private static function createRequestFromFactory(array $query = array(), array $request = array(), array $attributes = array(), array $cookies = array(), array $files = array(), array $server = array(), $content = null)
     {
+        // 设置了自定义的子类request构造器，则使用子类的，还要进行类型检查
         if (self::$requestFactory) {
             $request = call_user_func(self::$requestFactory, $query, $request, $attributes, $cookies, $files, $server, $content);
 

@@ -13,6 +13,7 @@ namespace Symfony\Component\HttpFoundation;
 
 /**
  * Response represents an HTTP response.
+ * 本类代表一个HTTP响应
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */

@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Session\Storage\MetadataBag;
 
 /**
  * Interface for the session.
+ * session接口
  *
  * @author Drak <drak@zikula.org>
  */
@@ -22,6 +23,7 @@ interface SessionInterface
 {
     /**
      * Starts the session storage.
+     * 开启session
      *
      * @return bool True if session started.
      *
@@ -31,6 +33,7 @@ interface SessionInterface
 
     /**
      * Returns the session ID.
+     * 返回session ID
      *
      * @return string The session ID.
      */
@@ -38,6 +41,7 @@ interface SessionInterface
 
     /**
      * Sets the session ID.
+     * 设置session ID
      *
      * @param string $id
      */
@@ -45,6 +49,7 @@ interface SessionInterface
 
     /**
      * Returns the session name.
+     * 返回session名称
      *
      * @return mixed The session name.
      */
@@ -52,6 +57,7 @@ interface SessionInterface
 
     /**
      * Sets the session name.
+     * 设置session名称
      *
      * @param string $name
      */
@@ -59,14 +65,19 @@ interface SessionInterface
 
     /**
      * Invalidates the current session.
+     * 作废当前session
      *
      * Clears all session attributes and flashes and regenerates the
      * session and deletes the old session from persistence.
+     * 清除所有session属性，flash，并且重新创建新session，从持久层删除
+     * 旧session
      *
      * @param int $lifetime Sets the cookie lifetime for the session cookie. A null value
      *                      will leave the system settings unchanged, 0 sets the cookie
      *                      to expire with browser session. Time is in seconds, and is
      *                      not a Unix timestamp.
+     * session ID的cookie超时时间，unll表示跟随系统，0表示浏览器关闭后就失效，以秒数表示
+     * 而非unix时间戳
      *
      * @return bool True if session invalidated, false if error.
      */

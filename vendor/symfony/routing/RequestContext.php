@@ -15,8 +15,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Holds information about the current request.
+ * 保存当前请求的相关信息
  *
  * This class implements a fluent interface.
+ * 本类实现了fluent接口风格（就是传说中的链式调用）
+ * 
  *
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Tobias Schultze <http://tobion.de>
